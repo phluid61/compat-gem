@@ -171,7 +171,10 @@ if RUBY_VERSION < '2.5'
       if m.empty?
         self ** b
       else
-        (self ** b) % m
+        raise ArgumentError, 'Integer#pow() 2nd argument not allowed unless a 1st argument is integer' unless b.is_a? Integer
+        raise ArgumentError, 'Integer#pow() 1st argument cannot be negative when 2nd argument specified' if b < 0
+        raise ArgumentError, 'Integer#pow() 2nd argument not allowed unless all arguments are integers' unless m[0].is_a? Integer
+        (self ** b) % m[0]
       end
     end
   end
